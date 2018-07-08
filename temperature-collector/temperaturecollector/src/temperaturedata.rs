@@ -2,6 +2,7 @@ use chrono::prelude::*;
 use regex::Regex;
 use std::str::FromStr;
 //Data of any temperature
+#[derive(Debug)]
 pub struct TemperatureData {
     sensor_id: u16,
     time: NaiveDateTime,
