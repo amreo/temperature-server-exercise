@@ -1,0 +1,7 @@
+[package]
+name = "temperaturecollector"
+version = "0.1.0"
+authors = ["amreo <amreo@live.it>"]
+
+[dependencies]
+chrono = "0.4"

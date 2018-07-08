@@ -1,0 +1,1 @@
+{"rustc":17859320367814235581,"features":"[]","target":17867514256886870645,"profile":14245719688690734572,"path":10872709659218687626,"deps":[["chrono v0.4.4","chrono",9157693871480447951]],"local":[{"MtimeBased":[[1531046574,9253378],".fingerprint/temperaturecollector-01f7aa0c1d37d5d1/dep-lib-temperaturecollector-01f7aa0c1d37d5d1"]}],"rustflags":[],"edition":"Edition2015"}
