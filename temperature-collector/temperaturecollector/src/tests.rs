@@ -8,9 +8,9 @@ mod tests {
         let dt = NaiveDate::from_ymd(2016, 7, 8).and_hms(9, 10, 11);
         let temperature_data = TemperatureData::new(10, dt, 22.5);
 
-        assert_eq!(temperature_data.sensor_id, 10);
-        assert_eq!(temperature_data.temperature, 22.5);
-        assert_eq!(temperature_data.time, dt);
+        assert_eq!(temperature_data.sensor_id(), 10);
+        assert_eq!(temperature_data.temperature(), 22.5);
+        assert_eq!(temperature_data.time(), dt);
     }
 
     #[test]
@@ -25,9 +25,9 @@ fine";
         let temperature_data = TemperatureData::from_datagram(datagram);
         assert!(temperature_data.is_ok());
         let temperature_data = temperature_data.unwrap();
-        assert_eq!(temperature_data.sensor_id, 10);
-        assert_eq!(temperature_data.temperature, 22.5);
-        assert_eq!(temperature_data.time, NaiveDate::from_ymd(2016, 7, 8).and_hms(9, 10, 11));
+        assert_eq!(temperature_data.sensor_id(), 10);
+        assert_eq!(temperature_data.temperature(), 22.5);
+        assert_eq!(temperature_data.time(), NaiveDate::from_ymd(2016, 7, 8).and_hms(9, 10, 11));
     }
 
     #[test]
