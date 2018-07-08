@@ -9,7 +9,8 @@ fn main() {
         log_redis_query: true,
         redis_url: String::from("redis://127.0.0.1"),
         server_ip: IpAddr::V4(std::net::Ipv4Addr::new(0, 0, 0, 0)),
-        server_port: 8886
+        server_port: 8886,
+        max_time_to_live: 60
     };
 
     DatagramListener::run(&cfg);

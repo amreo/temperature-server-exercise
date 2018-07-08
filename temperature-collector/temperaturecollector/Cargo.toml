@@ -6,3 +6,5 @@ authors = ["amreo <amreo@live.it>"]
 [dependencies]
 chrono = "0.4"
 regex = "1"
+redis = "0.8.0"
+rand = "0.3.14"
