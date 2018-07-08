@@ -1,1 +1,0 @@
-/home/amreo/src/repo/temperature-server-exercise/temperature-collector/temperaturecollector/target/rls/debug/libtemperaturecollector-2d27a8c2333b7fb4.rmeta: /home/amreo/src/repo/temperature-server-exercise/temperature-collector/temperaturecollector/src/lib.rs /home/amreo/src/repo/temperature-server-exercise/temperature-collector/temperaturecollector/src/main.rs
