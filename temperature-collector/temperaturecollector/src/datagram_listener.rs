@@ -23,7 +23,7 @@ impl DatagramListener {
             match socket.recv_from(&mut buf) {
                 Ok((length, src)) => {
                     if config.log_datagrams { println!("received datagram from: {}", src); }
-                    let _ = match TemperatureData::from_datagram(&str::from_utf8(&buf[..]).unwrap()[..length]) {
+                    match TemperatureData::from_datagram(&str::from_utf8(&buf[..]).unwrap()[..length]) {
                         Ok(td) => {
                             //Print the data
                             if config.log_datagrams { println!("{:?}", td); }
