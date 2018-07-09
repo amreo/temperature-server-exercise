@@ -1,5 +1,6 @@
 use std::net::IpAddr;
 
+#[derive(Debug)]
 pub struct Config {
     pub redis_url: String,
     pub server_ip: IpAddr,
