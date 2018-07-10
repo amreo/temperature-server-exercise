@@ -1,2 +1,5 @@
 temperature-collector/temperaturecollector/target/*
 temperature-collector/temperaturecollector/**/*.rs.bk
+tse-backend/tsebackend/target/*
+tse-backend/tsebackend/**/*.rs.bk
+*.vscode*
