@@ -1,3 +1,22 @@
-<p>
-  temperatures-table works!
-</p>
+<table style="width:100%">
+  <tr>
+    <td>sensorID</td>
+    <td>year</td>
+    <td>month</td>
+    <td>day</td>
+    <td>hour</td>
+    <td>minute</td>
+    <td>second</td>
+    <td>temperature</td>
+  </tr>
+  <tr *ngFor="let temperature of temperaturesList"> 
+    <td>{{ temperature.sensor_id }}</td>
+    <td>{{ temperature.time_year }}</td>
+    <td>{{ temperature.time_month }}</td>
+    <td>{{ temperature.time_day }}</td>
+    <td>{{ temperature.time_hour }}</td>
+    <td>{{ temperature.time_minute }}</td>
+    <td>{{ temperature.time_second }}</td>
+    <td>{{ temperature.temperature }}</td>
+  </tr>
+</table>
