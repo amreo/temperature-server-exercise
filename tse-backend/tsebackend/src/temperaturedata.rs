@@ -1,3 +1,5 @@
+use std::cmp::{Ord, Ordering};
+
 #[derive(Debug, Serialize)]
 pub struct TemperatureData {
     sensor_id: u16,
@@ -33,4 +35,63 @@ impl TemperatureData {
     pub fn time_hour(&self) -> u8 { self.time_hour }
     pub fn time_minute(&self) -> u8 { self.time_minute }
     pub fn time_second(&self) -> u8 { self.time_second }
+}
+
+impl Ord for TemperatureData {
+    fn cmp(&self, other: &TemperatureData) -> Ordering {
+        if self.time_year < other.time_year {
+            Ordering::Less
+        } else if self.time_year > other.time_year {
+            Ordering::Greater
+        } else if self.time_month < other.time_month {
+            Ordering::Less
+        } else if self.time_month > other.time_month {
+            Ordering::Greater
+        } else if self.time_day < other.time_day {
+            Ordering::Less
+        } else if self.time_day > other.time_day {
+            Ordering::Greater
+        } else if self.time_hour < other.time_hour {
+            Ordering::Less
+        } else if self.time_hour > other.time_hour {
+            Ordering::Greater
+        } else if self.time_minute < other.time_minute {
+            Ordering::Less
+        } else if self.time_minute > other.time_minute {
+            Ordering::Greater
+        } else if self.time_second < other.time_second {
+            Ordering::Less
+        } else if self.time_second > other.time_second {
+            Ordering::Greater
+        } else if self.sensor_id < other.sensor_id {
+            Ordering::Less
+        } else if self.sensor_id > other.sensor_id {
+            Ordering::Greater
+        } else {
+            Ordering::Equal
+        }
+    }
+}
+
+impl PartialOrd for TemperatureData {
+    fn partial_cmp(&self, other: &TemperatureData) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl PartialEq for TemperatureData {
+    fn eq(&self, other: &TemperatureData) -> bool {
+        self.sensor_id == other.sensor_id &&
+        self.time_year == other.time_year &&
+        self.time_month == other.time_month &&
+        self.time_day == other.time_day &&
+        self.time_hour == other.time_hour &&
+        self.time_minute == other.time_minute &&
+        self.time_second == other.time_second &&
+        self.temperature == other.temperature
+    }
+}
+
+impl Eq for TemperatureData {
+    
 }
