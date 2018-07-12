@@ -1,2 +1,11 @@
 [global]
 redis_url = "redis://127.0.0.1"
+
+[development]
+address = "127.0.0.1"
+
+[staging]
+address = "0.0.0.0"
+
+[production]
+address = "0.0.0.0"

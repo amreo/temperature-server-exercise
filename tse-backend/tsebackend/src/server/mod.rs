@@ -7,11 +7,11 @@ pub use self::redisdbconn::{DbConn, init_pool};
 use redis::cmd;
 use std::ops::Deref;
 use ::TemperatureData;
-use std::collections::{LinkedList, HashMap};
+use std::collections::HashMap;
 use std::str::FromStr;
-#[get("/")]
-fn temperature_list(conn: DbConn) -> Json<LinkedList<TemperatureData>> {
-    Json(cmd("KEYS").arg("temperaturedata:*").query::<HashMap<String, String>>(conn.deref()).unwrap().keys().filter_map(|key| {
+
+fn temperature_list(conn: DbConn) -> Vec<TemperatureData> {
+    cmd("KEYS").arg("temperaturedata:*").query::<HashMap<String, String>>(conn.deref()).unwrap().keys().filter_map(|key| {
         let res = cmd("HGETALL").arg(key).query::<HashMap<String, String>>(conn.deref());
         match res {
             Ok(val) => Some(TemperatureData::new(
@@ -26,7 +26,17 @@ fn temperature_list(conn: DbConn) -> Json<LinkedList<TemperatureData>> {
             ), Err(_) => None
         }
         
-    }).collect())
+    }).collect()
+} 
+
+
+#[get("/temperatures")]
+fn get_temperature_list(conn: DbConn) -> Json<Vec<TemperatureData>> {
+    Json(temperature_list(conn))
+}
+#[get("/temperatures/<id>")]
+fn get_temperate_list_by_sensor_id(conn: DbConn, id: u16) -> Json<Vec<TemperatureData>> {
+    Json(temperature_list(conn).into_iter().filter(|item| item.sensor_id() == id).collect())
 }
 
 pub fn launch() -> LaunchError {
@@ -35,5 +45,5 @@ pub fn launch() -> LaunchError {
             let redis_url = rocket.config().get_str("redis_url").unwrap_or("redis://127.0.0.1").to_string();
             Ok(rocket.manage(init_pool(redis_url.as_str())))
         }))
-        .mount("/temperature_list", routes![temperature_list]).launch()
+        .mount("/api", routes![get_temperature_list, get_temperate_list_by_sensor_id]).launch()
 }
