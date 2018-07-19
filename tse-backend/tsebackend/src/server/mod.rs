@@ -13,19 +13,26 @@ use rocket_cors::{AllowedHeaders, AllowedOrigins, Cors};
 use rocket::http::Method;
 
 fn temperature_list(conn: DbConn) -> Vec<TemperatureData> {
-    let mut list =  cmd("KEYS").arg("temperaturedata:*").query::<HashMap<String, String>>(conn.deref()).unwrap().keys().filter_map(|key| {
+    let mut list =  cmd("KEYS").arg("temperaturedata:*").query::<HashMap<String, String>>(conn.deref()).expect("Error in getting the keys list").keys().filter_map(|key| {
         let res = cmd("HGETALL").arg(key).query::<HashMap<String, String>>(conn.deref());
+        
         match res {
-            Ok(val) => Some(TemperatureData::new(
-                u16::from_str(val.get("sensorID").unwrap()).unwrap(), 
-                i32::from_str(val.get("year").unwrap()).unwrap(), 
-                u8::from_str(val.get("month").unwrap()).unwrap(), 
-                u8::from_str(val.get("day").unwrap()).unwrap(), 
-                u8::from_str(val.get("hour").unwrap()).unwrap(), 
-                u8::from_str(val.get("minute").unwrap()).unwrap(), 
-                u8::from_str(val.get("second").unwrap()).unwrap(), 
-                f32::from_str(val.get("temperature").unwrap()).unwrap())
-            ), Err(_) => None
+            Ok(val) => {
+                if val.len() == 8 {
+                    Some(TemperatureData::new(
+                        u16::from_str(val.get("sensorID").expect("SensorID should be present")).expect("Parsing error in sensorID"), 
+                        i32::from_str(val.get("year").expect("Year should be present")).expect("Parsing error in year"), 
+                        u8::from_str(val.get("month").expect("Month should be present")).expect("Parsing error in month"), 
+                        u8::from_str(val.get("day").expect("Day should be present")).expect("Parsing error in day"), 
+                        u8::from_str(val.get("hour").expect("Hour should be present")).expect("Parsing error in hour"), 
+                        u8::from_str(val.get("minute").expect("Minute should be present")).expect("Parsing error in minute"), 
+                        u8::from_str(val.get("second").expect("Second should be present")).expect("Parsing error in second"), 
+                        f32::from_str(val.get("temperature").expect("Temperature should be present")).expect("Parsing error in temperature"))
+                    )
+                } else {
+                    None
+                }
+            }, Err(_) => None
         }
         
     }).collect::<Vec<TemperatureData>>();
