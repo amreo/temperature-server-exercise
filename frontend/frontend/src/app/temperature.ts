@@ -1,10 +1,10 @@
 export class Temperature {
-    sensor_id: Number;
-    time_year: Number;
-    time_month: Number;
-    time_day: Number;
-    time_hour: Number;
-    time_minute: Number;
-    time_second: Number;
-    temperature: Number;
+    sensor_id: number;
+    time_year: number;
+    time_month: number;
+    time_day: number;
+    time_hour: number;
+    time_minute: number;
+    time_second: number;
+    temperature: number;
 }

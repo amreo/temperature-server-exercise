@@ -6,16 +6,22 @@ import { AppComponent } from './app.component';
 import { TemperaturesTableComponent } from './temperatures-table/temperatures-table.component';
 import { TemperaturesService } from './temperatures.service';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { TemperaturesChartComponent } from './temperatures-chart/temperatures-chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TemperaturesTableComponent
+    TemperaturesTableComponent,
+    TemperaturesChartComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    NgxChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     TemperaturesService
