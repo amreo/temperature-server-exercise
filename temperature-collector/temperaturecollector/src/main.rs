@@ -97,8 +97,8 @@ fn load_settings() -> Result<Config, ConfigError> {
         .set_default("server_ip", "0.0.0.0")?
         .set_default("server_port", "8886")?
         .set_default("max_time_to_live", "60")?
-        .merge(config::File::with_name("default"))?
-        .merge(config::File::with_name("conf"))?
+        .merge(config::File::with_name("default").required(false))?
+        .merge(config::File::with_name("conf").required(false))?
         .merge(glob("conf.d/*")
                    .unwrap()
                    .map(|path| File::from(path.unwrap()))
