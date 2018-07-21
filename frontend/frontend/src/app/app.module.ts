@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TemperaturesTableComponent } from './temperatures-table/temperatures-table.component';
+import { ConfigLoaderService } from './config-loader.service';
 import { TemperaturesService } from './temperatures.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,7 +25,8 @@ import { TemperaturesChartComponent } from './temperatures-chart/temperatures-ch
     BrowserAnimationsModule
   ],
   providers: [
-    TemperaturesService
+    ConfigLoaderService,
+    TemperaturesService,
   ],
   bootstrap: [AppComponent]
 })

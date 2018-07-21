@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Temperature } from './temperature';
-import { Observable } from 'rxjs';
+import { Observable, config } from 'rxjs';
+import { ConfigLoaderService } from './config-loader.service';
+import { mergeMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TemperaturesService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private configLoaderService: ConfigLoaderService, private httpClient: HttpClient) { }
 
   public getTemperatures(): Observable<Temperature[]> {
-    return this.httpClient.get<Temperature[]>("http://127.0.0.1:8000/api/temperatures");
+    return this.configLoaderService.getConfig().pipe(mergeMap((conf) => {
+      return this.httpClient.get<Temperature[]>(conf.backend_base_url + "/api/temperatures");
+    }));
   }
 }
