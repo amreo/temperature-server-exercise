@@ -10,7 +10,7 @@ from datetime import datetime
 def main():
     # Create the parser
     parser = argparse.ArgumentParser(description='This is a simple fake temperaturesensor')
-    parser.add_argument('-s', '--host', type=ipaddress.IPv4Address, help='Ip address of the host', default=ipaddress.IPv4Address("127.0.0.1"))
+    parser.add_argument('-s', '--host',type=str , help='Hostname or ip address of the host', default="127.0.0.1")
     parser.add_argument('-p', '--port', type=int, help='Port of the host', default=8886)
     parser.add_argument('-t', '--shoots', type=int, help='Numbers of time to shooting to the server. Set to 0 for infinite shoots', default=0)
     parser.add_argument('-r','--shoots-rate', type=int, help='Frequency of shooting at minute', default=120)
@@ -56,7 +56,7 @@ def sendData(socket, host, port, sensorID, temperature):
         temperature
     ).encode("ascii");
     print(msg)
-    socket.sendto(msg, ("{}".format(host), port))
+    socket.sendto(msg, (host, port))
 
 
 def clamp(n, minn, maxn):
