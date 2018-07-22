@@ -119,6 +119,6 @@ fn load_settings() -> Result<Config, ConfigError> {
 fn main() {
     let cfg = load_settings().unwrap();
     let cfg = apply_command_line_arguments(cfg).unwrap();
-    //println!("{:?}", cfg);
+    println!("{:?}", cfg);
     DatagramListener::run(&cfg);
 }
