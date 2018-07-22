@@ -33,7 +33,7 @@ Il **backend** può essere configurato modificato le opportune proprietà in `ts
 * In `fake-sensor` eseguire `python3 fake-sensor.py`. È possibile eseguire più volte questo comando passando a ciascuna esecuzione un `--sensor-id` diverso per simulare la presenza di più sensori
 * Adesso è possibile visualizzare il progetto con `http://localhost:4200`
 ## Eseguire il progetto con docker
-`
+```
 cd tse-backend
 docker build -t tse-backend:latest .
 cd ../frontend
@@ -44,5 +44,5 @@ cd ../fake-sensor
 docker build -t tse-fake-sensor:latest .
 cd ../
 docker-compose up
-`
+```
 PS: non ho verificato che queste istruzioni funzionino. Forse richiede la presenza di un docker swarm o la presenza di un registro.
