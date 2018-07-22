@@ -1,0 +1,53 @@
+version: '3.3'
+services:
+  frontend:
+    image: "tse-frontend:proxy-pass"
+    ports:
+      - "80"
+    networks:
+      - webnet
+    depends_on:
+      - backend
+  backend:
+    image: "tse-backend:latest"
+    ports:
+      - "8000"
+    networks: 
+      - webnet
+      - backend
+    environment:
+      - ROCKET_REDIS_URL=redis://redis
+      - ROCKET_ENV=staging
+      - ROCKET_PORT=8000
+    depends_on:
+      - redis
+  temperature-collector:
+    image: "tse-temperature-collector:latest"
+    ports: 
+      - "8886/udp" 
+    networks: 
+      - backend
+      - sensors
+    environment: 
+      - TEMPERATURECOLLECTOR_LOG_DATAGRAMS=true
+      - TEMPERATURECOLLECTOR_REDIS_URL=redis://redis
+    depends_on:
+      - redis
+  redis: 
+    image: "redis:alpine"
+    networks:
+      - backend
+  fake-sensor:
+    image: "tse-fake-sensor:latest"
+    networks: 
+      - sensors
+    deploy:
+      mode: replicated
+      replicas: 5
+    command: python ./fake-sensor.py --host temperature-collector
+    depends_on:
+      - temperature-collector
+networks:
+  webnet:
+  backend:
+  sensors:
