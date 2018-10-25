@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   frontend:
-    image: "tse-frontend:proxy-pass"
+    image: "amreo/tse-frontend:proxy-pass"
     ports:
       - "80"
     networks:
@@ -9,7 +9,7 @@ services:
     depends_on:
       - backend
   backend:
-    image: "tse-backend:latest"
+    image: "amreo/tse-backend:latest"
     ports:
       - "8000"
     networks: 
@@ -22,7 +22,7 @@ services:
     depends_on:
       - redis
   temperature-collector:
-    image: "tse-temperature-collector:latest"
+    image: "amreo/tse-temperature-collector:latest"
     ports: 
       - "8886/udp" 
     networks: 
@@ -38,7 +38,7 @@ services:
     networks:
       - backend
   fake-sensor:
-    image: "tse-fake-sensor:latest"
+    image: "amreo/tse-fake-sensor:latest"
     networks: 
       - sensors
     deploy:
